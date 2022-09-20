@@ -2,6 +2,7 @@ import random
 from task1 import decorator_1
 from task2 import decorator_2
 import task3
+import task4
 
 def quadratic_solver(eq):
     return eq
@@ -11,7 +12,8 @@ def pascal_triangle(n):
 
 # @decorator_1
 # @decorator_2
-@task3.decorator_3
+# @task3.decorator_3
+@task4.decorator_4
 def func():
     print("I am ready to Start")
     result = 0
@@ -22,7 +24,8 @@ def func():
 
 # @decorator_1
 # @decorator_2
-@task3.decorator_3
+# @task3.decorator_3
+@task4.decorator_4
 def funx(n=2, m=5):
     '''DoCstring'''
     print('I am ready to \ndo serious stuff')
@@ -34,7 +37,7 @@ def funx(n=2, m=5):
             max_val = i
     
 if __name__ == "__main__": 
-    func()
+    # func()
     funx(2, 3)
     # func()
     # func()
