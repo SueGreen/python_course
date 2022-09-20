@@ -1,5 +1,7 @@
 import random
 import cmath
+import pandas as pd
+from IPython.display import display
 from task1 import decorator_1
 from task2 import decorator_2
 import task3
@@ -64,22 +66,37 @@ def funx(n=2, m=5):
             max_val = i
     
 if __name__ == "__main__": 
+    
     func()
     funx(2, 3)
     func()
     func()
     funx()
     func()
-    quadratic_solver(1, 4, 2)
-    pascal_triangle(5)
+    # quadratic_solver(1, 4, 2)
+    # pascal_triangle(5)
 
+    print(f'Information about last execution:')
     print(f'PROGRAM | RANK | TIME ELAPSED')
-    if task4.rank is not None:
-        functions_rank = task4.rank
+    if task4.functions_statistics is not None:
+        last_execution_statistics = task4.rank
+        full_functions_statistics = task4.functions_statistics
     else:
-        functions_rank = task3.rank
-    for i, (k, v) in enumerate(sorted(functions_rank.items(), key=lambda item: item[1])):
+        functions_data = task3.num_calls 
+
+    for i, (k, v) in enumerate(sorted(last_execution_statistics.items(), key=lambda item: item[1])):
         print(f'{k}: \t{i + 1} \t{v}')
+
+    
+    print(f'\nMore detailed information:')
+    if full_functions_statistics is not None:
+        full_functions_statistics = pd.DataFrame(full_functions_statistics)
+        display(full_functions_statistics.groupby('name', as_index=False).agg(
+            mean_execution_time=('execution_time', 'mean'),
+            min_execution_time=('execution_time', 'min'),
+            max_execution_time=('execution_time', 'max'),
+            calls_num=('call_number', 'max')
+        ).sort_values(by='mean_execution_time').reset_index(drop=True))
 
 
 

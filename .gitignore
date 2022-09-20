@@ -1,3 +1,5 @@
 src/__pycache__/
+.ipynb_checkpoints
+files/
 src/tmp.py
-# files
+src/inno-python-labs.ipynb

@@ -2,32 +2,32 @@ import contextlib
 import inspect
 import time
 import io
+from pathlib import Path
 
-
-functions_data = {}
 rank = {}
+num_calls = {}
 
 class decorator_3():
     def __init__(self, func):
         self.func = func
 
     def __call__(self, *args, **kwargs):
-        global functions_data
-        global rank
+        with open(Path('files/output.txt'), 'w') as output_file:
+            with contextlib.redirect_stdout(output_file):
 
-        func_result = io.StringIO()
-        with open('files/output.txt', 'a') as f:
-            with contextlib.redirect_stdout(f):
-                with contextlib.redirect_stdout(func_result):
+                func_result_dump = io.StringIO()
+                with contextlib.redirect_stdout(func_result_dump):
                     begin = time.time()
                     result = self.func(*args, **kwargs)
                     end = time.time()
                 execution_time = end - begin
-                if functions_data.get(self.func.__name__) is None:
-                    functions_data[self.func.__name__] = 1
+                if num_calls.get(self.func.__name__) is None:
+                    num_calls[self.func.__name__] = 1
+                    call_number = num_calls[self.func.__name__]
                 else:
-                    functions_data[self.func.__name__] += 1
-                print(f'{self.func.__name__} call {functions_data[self.func.__name__]} executed in {execution_time:.6f} sec')
+                    num_calls[self.func.__name__] += 1
+                    call_number = num_calls[self.func.__name__]
+                print(f'{self.func.__name__} call {call_number} executed in {execution_time:.6f} sec')
 
 
                 print(f'Name: \t{self.func.__name__}')
@@ -44,13 +44,10 @@ class decorator_3():
                     i += 1
 
                 print(f'\nOutput:')
-                f = io.StringIO()
-                with contextlib.redirect_stdout(f):
-                    result = self.func(*args, **kwargs)
-                s = f.getvalue()
+                s = func_result_dump.getvalue()
                 for line in s.splitlines():
                     print(f'\t{line}', end='\n')
 
                 rank[self.func.__name__] = f'{execution_time:.9f} s'
-        return result
+                return result
 
