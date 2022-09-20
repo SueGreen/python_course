@@ -12,7 +12,7 @@ class decorator_3():
         self.func = func
 
     def __call__(self, *args, **kwargs):
-        with open(Path('files/output.txt'), 'w') as output_file:
+        with open(Path('files/output.txt'), 'a') as output_file:
             with contextlib.redirect_stdout(output_file):
 
                 func_result_dump = io.StringIO()
