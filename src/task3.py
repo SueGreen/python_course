@@ -16,7 +16,7 @@ class decorator_3():
         global rank
 
         func_result = io.StringIO()
-        with open('output.txt', 'a') as f:
+        with open('files/output.txt', 'a') as f:
             with contextlib.redirect_stdout(f):
                 with contextlib.redirect_stdout(func_result):
                     begin = time.time()

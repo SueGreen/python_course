@@ -1,14 +1,41 @@
 import random
+import cmath
 from task1 import decorator_1
 from task2 import decorator_2
 import task3
 import task4
 
-def quadratic_solver(eq):
-    return eq
 
+
+reverse_upper = lambda a_string: a_string.upper()[::-1]
+
+ages = [13, 90, 17, 59, 21, 60, 5]
+adults = list(filter(lambda age: age >= 18, ages))
+
+
+# @decorator_1
+# @decorator_2
+# @task3.decorator_3
+@task4.decorator_4
+def quadratic_solver(a=1,b=4, c=2): 
+    discriminant = (b**2) - (4 * a * c)
+    ans1 = (-b - cmath.sqrt(discriminant)) / (2 * a)
+    ans2 = (-b + cmath.sqrt(discriminant)) / (2 * a)
+    print(f'roots are: {ans1}, {ans2}')
+
+# @decorator_1
+# @decorator_2
+# @task3.decorator_3
+@task4.decorator_4
 def pascal_triangle(n):
-    print(n)
+    cur = [1]
+    for row_num in range(n):
+        new = [1]
+        for elem_num in range(len(cur)-1):
+            new.append(cur[elem_num] + cur[elem_num + 1])
+        new = new + [1]
+        print(*new)
+        cur = new
 
 # @decorator_1
 # @decorator_2
@@ -37,15 +64,20 @@ def funx(n=2, m=5):
             max_val = i
     
 if __name__ == "__main__": 
-    # func()
+    func()
     funx(2, 3)
-    # func()
-    # func()
-    # funx()
-    # func()
+    func()
+    func()
+    funx()
+    func()
+    quadratic_solver(1, 4, 2)
+    pascal_triangle(5)
 
     print(f'PROGRAM | RANK | TIME ELAPSED')
-    functions_rank = task3.rank
+    if task4.rank is not None:
+        functions_rank = task4.rank
+    else:
+        functions_rank = task3.rank
     for i, (k, v) in enumerate(sorted(functions_rank.items(), key=lambda item: item[1])):
         print(f'{k}: \t{i + 1} \t{v}')
 

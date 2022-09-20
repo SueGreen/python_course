@@ -15,10 +15,10 @@ class decorator_4():
         global functions_data
         global rank
 
-        with open('logs.txt', 'a') as logs_file:
+        with open('files/logs.txt', 'a') as logs_file:
             with contextlib.redirect_stderr(logs_file):
                 try:
-                    with open('output.txt', 'a') as f:
+                    with open('files/output.txt', 'a') as f:
                         with contextlib.redirect_stdout(f):
 
                             func_result = io.StringIO()
